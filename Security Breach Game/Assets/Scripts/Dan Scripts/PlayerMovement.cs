@@ -19,6 +19,10 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 velocity;
 
     private Vector3 move;
+
+
+    private float smoothTime = 0.1f;
+    private float turnSmoothVelocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,7 +55,18 @@ public class PlayerMovement : MonoBehaviour
 
         move = direction * speed;
 
-        ChangeWall(move);
+        /*
+        //Rotating the player character
+        float targetAngle = Mathf.Atan2(direction.x, direction.z) * Mathf.Rad2Deg;
+
+        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTime);
+        transform.rotation = Quaternion.Euler(0f, angle, 0f);
+
+        Vector3 moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
+        //------------------
+        */
+
+        //ChangeWall(move, wallDirection);
         if (isOnGround)
         {
             controller.Move(move * Time.deltaTime);
@@ -69,6 +84,7 @@ public class PlayerMovement : MonoBehaviour
         if (isOnGround)
         {
             velocity.y -= gravity * Time.deltaTime;
+            velocity.z = 0;
         }
         else if (isOnWall)
         {
@@ -78,7 +94,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
     
-    public void ChangeWall(Vector3 move)
+    public void ChangeWall(Vector3 move, Vector3 wallDirection)
     {
         if (isOnGround)
         {
@@ -91,6 +107,38 @@ public class PlayerMovement : MonoBehaviour
                 transform.rotation = Quaternion.Euler(270f, 0f, 0f);
                 Debug.Log("Player has hit a wall");
             }
+        }
+        else if (isOnWall)
+        {
+            LayerMask groundMask = LayerMask.GetMask("Ground");
+            
+            if (Physics.Raycast(transform.position, wallDirection.normalized, wallCheckDistance, groundMask))
+            {
+                isOnGround = true;
+                isOnWall = false;
+                //Rotate the player 
+                transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+                Debug.Log("Player has hit the floor");
+                Debug.DrawLine(transform.position, move, Color.red);
+            }
+        }
+    }
+
+    private void OnControllerColliderHit(ControllerColliderHit hit)
+    {
+        //Used to run on walls 
+        if(hit.normal.y < 0.1f)
+        {
+            isOnWall = true;
+            isOnGround = false;
+            //Debug.Log("Normal created from the wall");
+            //Debug.DrawRay(hit.point, hit.normal, Color.green, 1.25f);
+        }
+        //Used to return back to the ground
+        else if (hit.normal.y > 0.1f)
+        {
+            isOnGround = true;
+            isOnWall = false;
         }
     }
 }

@@ -672,7 +672,7 @@ GameObject:
   - component: {fileID: 824079675}
   - component: {fileID: 824079674}
   - component: {fileID: 824079673}
-  m_Layer: 8
+  m_Layer: 9
   m_Name: Ground (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1064,8 +1064,8 @@ SphereCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
-  m_Center: {x: -0.3, y: 0, z: 0}
+  m_Radius: 0.28163356
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &1384811067
 GameObject:
   m_ObjectHideFlags: 0
