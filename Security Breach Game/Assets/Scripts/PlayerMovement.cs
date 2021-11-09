@@ -8,7 +8,9 @@ public class PlayerMovement : MonoBehaviour
 
     [SerializeField] private float speed = 5f;
 
-    [SerializeField]
+    [SerializeField] private float gravity = 1f;
+
+    private Vector3 velocity;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,6 +27,9 @@ public class PlayerMovement : MonoBehaviour
 
         //Call the move player function calculate the direction need to move the player
         MovePlayer(x, z);
+
+        //Add gravity
+        AddGravity();
     }
 
     private void MovePlayer(float x, float z)
@@ -33,5 +38,12 @@ public class PlayerMovement : MonoBehaviour
         Vector3 move = direction * speed;
 
         controller.Move(move * Time.deltaTime);
+    }
+
+    private void AddGravity()
+    {
+        //Change the velocity.y value when climbing walls, for example (velocity.x)
+        velocity.y -= gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 }
