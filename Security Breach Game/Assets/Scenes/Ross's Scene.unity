@@ -227,12 +227,12 @@ GameObject:
   - component: {fileID: 214562324}
   - component: {fileID: 214562323}
   - component: {fileID: 214562327}
-  - component: {fileID: 214562328}
   - component: {fileID: 214562332}
   - component: {fileID: 214562331}
   - component: {fileID: 214562330}
   - component: {fileID: 214562329}
   - component: {fileID: 214562333}
+  - component: {fileID: 214562328}
   m_Layer: 2
   m_Name: Player
   m_TagString: Untagged
@@ -342,11 +342,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 214562322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2c82309efeed5d443b76bd18cd3f31b3, type: 3}
+  m_Script: {fileID: 11500000, guid: 1c77cc05c02ac294f9498e54c7addeec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  isClimbing: 0
   viewCamera: {fileID: 963194227}
 --- !u!65 &214562329
 BoxCollider:
