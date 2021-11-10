@@ -487,7 +487,7 @@ GameObject:
   - component: {fileID: 753748805}
   - component: {fileID: 753748804}
   m_Layer: 9
-  m_Name: Ground (2)
+  m_Name: FirstWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -673,7 +673,7 @@ GameObject:
   - component: {fileID: 824079674}
   - component: {fileID: 824079673}
   m_Layer: 9
-  m_Name: Ground (4)
+  m_Name: SecondWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -829,8 +829,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
-  m_LocalPosition: {x: -0.46, y: 16.22, z: -16.11}
+  m_LocalRotation: {x: 0.2588191, y: -0, z: -0, w: 0.9659258}
+  m_LocalPosition: {x: -0.46, y: 11.69, z: -16.82}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -942,12 +942,12 @@ GameObject:
   - component: {fileID: 1272694168}
   - component: {fileID: 1272694167}
   m_Layer: 8
-  m_Name: Ground (5)
+  m_Name: ThirdWall
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1272694166
 Transform:
   m_ObjectHideFlags: 0

@@ -50,10 +50,12 @@ public class PlayerMovement : MonoBehaviour
 
     private void MovePlayer(float x, float z)
     {
-        Vector3 direction = new Vector3(x, 0, z);
-        Vector3 wallDirection = new Vector3(x, z, 0);
+        Vector3 groundDirection = new Vector3(x, 0, z);
+        Vector3 firstWallDirection = new Vector3(x, z, 0);
+        Vector3 secondWallDirection = new Vector3(0, z, -x);
+        Vector3 thirdWallDirection = new Vector3(0, z, x);
 
-        move = direction * speed;
+        move = groundDirection * speed;
 
         /*
         //Rotating the player character
@@ -67,13 +69,14 @@ public class PlayerMovement : MonoBehaviour
         */
 
         //ChangeWall(move, wallDirection);
+        
         if (isOnGround)
         {
             controller.Move(move * Time.deltaTime);
         }
         else if (isOnWall)
         {
-            controller.Move(wallDirection * speed * Time.deltaTime);
+            controller.Move(firstWallDirection * speed * Time.deltaTime);
         }
     }
 
@@ -85,10 +88,20 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y -= gravity * Time.deltaTime;
             velocity.z = 0;
+            velocity.x = 0;
         }
         else if (isOnWall)
         {
+            
+            //Used for first wall
             velocity.z += gravity * Time.deltaTime;
+
+            //Used for second wall
+            //velocity.x += gravity * Time.deltaTime;
+
+            //Used for third wall
+            //velocity.x -= gravity * Time.deltaTime;
+
             velocity.y = 0;
         }
         controller.Move(velocity * Time.deltaTime);
@@ -132,7 +145,7 @@ public class PlayerMovement : MonoBehaviour
             isOnWall = true;
             isOnGround = false;
             //Debug.Log("Normal created from the wall");
-            //Debug.DrawRay(hit.point, hit.normal, Color.green, 1.25f);
+            Debug.DrawRay(hit.point, hit.normal, Color.green, 1.25f);
         }
         //Used to return back to the ground
         else if (hit.normal.y > 0.1f)
