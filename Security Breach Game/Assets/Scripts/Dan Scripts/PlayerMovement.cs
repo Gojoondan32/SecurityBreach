@@ -23,6 +23,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private bool onFirstWall;
     [SerializeField] private bool onSecondWall;
     [SerializeField] private bool onThirdWall;
+    [SerializeField] private bool onFourthWall;
 
 
     private float smoothTime = 0.1f;
@@ -60,6 +61,7 @@ public class PlayerMovement : MonoBehaviour
         Vector3 firstWallDirection = new Vector3(x, z, 0);
         Vector3 secondWallDirection = new Vector3(0, z, -x);
         Vector3 thirdWallDirection = new Vector3(0, z, x);
+        Vector3 fourthWallDirection = new Vector3(-x, z, 0);
 
         move = groundDirection * speed;
 
@@ -96,6 +98,10 @@ public class PlayerMovement : MonoBehaviour
         else if (onThirdWall)
         {
             controller.Move(thirdWallDirection * speed * Time.deltaTime);
+        }
+        else if (onFourthWall)
+        {
+            controller.Move(fourthWallDirection * speed * Time.deltaTime); 
         }
     }
 
@@ -144,7 +150,12 @@ public class PlayerMovement : MonoBehaviour
             velocity.y = 0;
             velocity.z = 0;
         }
-
+        else if (onFourthWall)
+        {
+            velocity.z -= gravity;
+            velocity.x = 0;
+            velocity.y = 0;
+        }
         controller.Move(velocity * Time.deltaTime);
     }
     
@@ -183,21 +194,23 @@ public class PlayerMovement : MonoBehaviour
         //Used to run on walls 
         if(hit.normal.y < 0.1f)
         {
-            if(hit.gameObject.tag == "Wall1")
+            if (hit.gameObject.tag == "Wall1")
             {
                 onFirstWall = true;
                 isOnGround = false;
                 isOnWall = false;
                 onThirdWall = false;
+                onFourthWall = false;
 
                 Debug.Log("On first wall");
             }
-            else if(hit.gameObject.tag == "Wall2")
+            else if (hit.gameObject.tag == "Wall2")
             {
                 onFirstWall = false;
                 isOnGround = false;
                 onSecondWall = true;
                 onThirdWall = false;
+                onFourthWall = false;
             }
             else if (hit.gameObject.tag == "Wall3")
             {
@@ -205,8 +218,16 @@ public class PlayerMovement : MonoBehaviour
                 onSecondWall = false;
                 isOnGround = false;
                 onThirdWall = true;
+                onFourthWall = false;
             }
-
+            else if (hit.gameObject.tag == "Wall4")
+            {
+                onFirstWall = false;
+                onSecondWall = false;
+                onThirdWall = false;
+                isOnGround = false;
+                onFourthWall = true;
+            }
             
             isOnGround = false;
             //Debug.Log("Normal created from the wall");
@@ -220,6 +241,7 @@ public class PlayerMovement : MonoBehaviour
             onFirstWall = false;
             onSecondWall = false;
             onThirdWall = false;
+            onFourthWall = false;
         }
     }
 }

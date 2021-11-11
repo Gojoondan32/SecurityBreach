@@ -8,6 +8,7 @@ TagManager:
   - Wall1
   - Wall2
   - Wall3
+  - Wall4
   layers:
   - Default
   - TransparentFX
