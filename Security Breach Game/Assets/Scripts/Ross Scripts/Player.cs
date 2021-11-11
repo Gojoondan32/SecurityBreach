@@ -8,8 +8,9 @@ public class Player : MonoBehaviour
 
     [SerializeField] private float speed = 5f;
 
-    private int isClimbing = 0;
     public Camera viewCamera;
+
+    private Vector3 groundNormal = new Vector3(0.0f, 0.0f, 1.0f);
 
     // Start is called before the first frame update
     void Start()
@@ -27,9 +28,6 @@ public class Player : MonoBehaviour
 
         MovePlayer(x, z);
 
-        if (isClimbing > 0)
-            controller.Move(new Vector3(0.0f, -9.8f, 0.0f) * Time.deltaTime);
-
         //Re-adjusting camera automatically.
         Vector3 cameraOffset = new Vector3(0.0f, 10.0f, 0.0f);
         RaycastHit hit;
@@ -44,25 +42,39 @@ public class Player : MonoBehaviour
 
     private void MovePlayer(float x, float z)
     {
-        Vector3 direction = new Vector3(x, 0, z);
-
-        Debug.Log(isClimbing);
-        if (isClimbing > 0)
-            direction += new Vector3(0.0f, (x != 0.0f ? x : (z != 0.0f ? z : 0.0f)), 0.0f);
+        Vector3 direction = gameObject.transform.forward * z + gameObject.transform.right * x;
 
         Vector3 move = direction * speed;
 
         controller.Move(move * Time.deltaTime);
-    }
-    void OnTriggerEnter(Collider other)
-    {
-        if (other.tag.Equals("Climbable"))
-            isClimbing++;
+
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnCollisionEnter(Collision collision)
     {
-        if (other.tag.Equals("Climbable"))
-            isClimbing--;
+        if (collision.collider.CompareTag("Climbable"))
+        {
+            groundNormal = collision.contacts[collision.contactCount - 1].normal;
+
+            Quaternion rotate = Quaternion.Euler(0.0f, 0.0f, 0.0f);
+            //Gonna do alot of comparisons...
+            if (groundNormal.x != 0.0f)
+            {
+                if (groundNormal.x < 0.0f)
+                    rotate = Quaternion.Euler(0.0f, 0.0f, 90.0f);
+                else
+                    rotate = Quaternion.Euler(180.0f, 180.0f, 90.0f);
+            }
+            else if (groundNormal.z != 0.0f)
+            {
+                if (groundNormal.z < 0.0f)
+                    rotate = Quaternion.Euler(-90.0f, 0.0f, 0.0f);
+                else
+                    rotate = Quaternion.Euler(90.0f, 180.0f, 180.0f);
+            }
+
+            gameObject.transform.rotation = rotate;
+        }
     }
+
 }
