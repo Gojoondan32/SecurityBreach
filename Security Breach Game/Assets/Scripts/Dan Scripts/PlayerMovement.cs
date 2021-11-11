@@ -20,6 +20,10 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 move;
 
+    [SerializeField] private bool onFirstWall;
+    [SerializeField] private bool onSecondWall;
+    [SerializeField] private bool onThirdWall;
+
 
     private float smoothTime = 0.1f;
     private float turnSmoothVelocity;
@@ -31,6 +35,8 @@ public class PlayerMovement : MonoBehaviour
 
         isOnGround = true;
         isOnWall = false;
+
+        onFirstWall = false;
     }
 
     // Update is called once per frame
@@ -76,7 +82,20 @@ public class PlayerMovement : MonoBehaviour
         }
         else if (isOnWall)
         {
+            //controller.Move(secondWallDirection * speed * Time.deltaTime);
+        }
+
+        else if (onFirstWall)
+        {
             controller.Move(firstWallDirection * speed * Time.deltaTime);
+        }
+        else if (onSecondWall)
+        {
+            controller.Move(secondWallDirection * speed * Time.deltaTime);
+        }
+        else if (onThirdWall)
+        {
+            controller.Move(thirdWallDirection * speed * Time.deltaTime);
         }
     }
 
@@ -94,7 +113,7 @@ public class PlayerMovement : MonoBehaviour
         {
             
             //Used for first wall
-            velocity.z += gravity * Time.deltaTime;
+            //velocity.z += gravity * Time.deltaTime;
 
             //Used for second wall
             //velocity.x += gravity * Time.deltaTime;
@@ -104,6 +123,28 @@ public class PlayerMovement : MonoBehaviour
 
             velocity.y = 0;
         }
+        else if (onFirstWall)
+        {
+            //Used for first wall
+            velocity.z += gravity * Time.deltaTime;
+            velocity.y = 0;
+            velocity.x = 0;
+        }
+        else if (onSecondWall)
+        {
+            //Used for second wall
+            velocity.x += gravity * Time.deltaTime;
+            velocity.y = 0;
+            velocity.z = 0;
+        }
+        else if (onThirdWall)
+        {
+            //Used for third wall
+            velocity.x -= gravity * Time.deltaTime;
+            velocity.y = 0;
+            velocity.z = 0;
+        }
+
         controller.Move(velocity * Time.deltaTime);
     }
     
@@ -142,16 +183,43 @@ public class PlayerMovement : MonoBehaviour
         //Used to run on walls 
         if(hit.normal.y < 0.1f)
         {
-            isOnWall = true;
+            if(hit.gameObject.tag == "Wall1")
+            {
+                onFirstWall = true;
+                isOnGround = false;
+                isOnWall = false;
+                onThirdWall = false;
+
+                Debug.Log("On first wall");
+            }
+            else if(hit.gameObject.tag == "Wall2")
+            {
+                onFirstWall = false;
+                isOnGround = false;
+                onSecondWall = true;
+                onThirdWall = false;
+            }
+            else if (hit.gameObject.tag == "Wall3")
+            {
+                onFirstWall = false;
+                onSecondWall = false;
+                isOnGround = false;
+                onThirdWall = true;
+            }
+
+            
             isOnGround = false;
             //Debug.Log("Normal created from the wall");
-            Debug.DrawRay(hit.point, hit.normal, Color.green, 1.25f);
+            //Debug.DrawRay(hit.point, hit.normal, Color.green, 1.25f);
         }
         //Used to return back to the ground
         else if (hit.normal.y > 0.1f)
         {
             isOnGround = true;
             isOnWall = false;
+            onFirstWall = false;
+            onSecondWall = false;
+            onThirdWall = false;
         }
     }
 }
