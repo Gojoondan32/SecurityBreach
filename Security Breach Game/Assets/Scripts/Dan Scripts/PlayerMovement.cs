@@ -237,7 +237,7 @@ public class PlayerMovement : MonoBehaviour
         else if (hit.normal.y > 0.1f)
         {
             isOnGround = true;
-            isOnWall = false;
+            
             onFirstWall = false;
             onSecondWall = false;
             onThirdWall = false;
