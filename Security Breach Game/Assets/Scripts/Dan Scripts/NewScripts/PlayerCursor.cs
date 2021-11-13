@@ -6,7 +6,8 @@ public class PlayerCursor : MonoBehaviour
 {
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private Camera mainCamera;
-    
+
+    [SerializeField] private float radius = 3f;
     // Start is called before the first frame update
     void Start()
     {
@@ -23,5 +24,16 @@ public class PlayerCursor : MonoBehaviour
             transform.position = hit.point;
         }
         
+    }
+
+    private void GetBots()
+    {
+        LayerMask botMask = LayerMask.GetMask("Bots");
+        Collider[] botsHit = Physics.OverlapSphere(gameObject.transform.position, radius, botMask);
+
+        foreach (Collider bots in botsHit)
+        {
+            Debug.Log("Bots are in range");
+        }
     }
 }
