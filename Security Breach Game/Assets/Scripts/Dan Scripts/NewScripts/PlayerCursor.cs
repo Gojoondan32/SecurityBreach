@@ -10,14 +10,16 @@ public class PlayerCursor : MonoBehaviour
     [SerializeField] private float radius = 3f;
 
     public BotMovement botMovement1;
-    
 
+    [SerializeField] private List<GameObject> bots = new List<GameObject>();
+
+    RaycastHit hit;
     // Update is called once per frame
     void Update()
     {
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
         
-        if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, layerMask))
+        if(Physics.Raycast(ray, out hit, float.MaxValue, layerMask))
         {
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
