@@ -8,11 +8,9 @@ public class PlayerCursor : MonoBehaviour
     [SerializeField] private Camera mainCamera;
 
     [SerializeField] private float radius = 3f;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+    public BotMovement botMovement1;
+    
 
     // Update is called once per frame
     void Update()
@@ -21,7 +19,13 @@ public class PlayerCursor : MonoBehaviour
         
         if(Physics.Raycast(ray, out RaycastHit hit, float.MaxValue, layerMask))
         {
+            if (Input.GetKeyDown(KeyCode.Mouse0))
+            {
+                botMovement1.PlayerMovePoint(hit.point);
+            }
+            
             transform.position = hit.point;
+            GetBots();
         }
         
     }
@@ -33,7 +37,10 @@ public class PlayerCursor : MonoBehaviour
 
         foreach (Collider bots in botsHit)
         {
-            Debug.Log("Bots are in range");
+            //Debug.Log("Bots are in range");
+            BotMovement botMovement = bots.gameObject.GetComponent<BotMovement>();
+
+            botMovement.CheckRadius();
         }
     }
 }

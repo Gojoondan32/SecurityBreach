@@ -5,46 +5,55 @@ using UnityEngine;
 public class PlayerInstructions : MonoBehaviour
 {
     [SerializeField] private float range = 5f;
-    private LayerMask botMask;
+    private LayerMask groundMask;
     RaycastHit hit;
+
+    public BotMovement botMovement;
     // Start is called before the first frame update
     void Start()
     {
-        botMask = LayerMask.GetMask("Bots");
+        groundMask = LayerMask.GetMask("Ground");
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            CallBots();
+            MoveBots();
         }
+        */
     }
 
-    private void CallBots()
+    private void MoveBots()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //RaycastHit hit;
 
-        if(Physics.Raycast(ray, out hit, botMask))
+        if(Physics.Raycast(ray, out hit, groundMask))
         {
-            
-            //hit.point = Physics.OverlapSphere(hit.point, 5);
-            Collider[] botsHit = Physics.OverlapSphere(hit.point, range, botMask);
+            botMovement.PlayerMovePoint(hit.point);
+
+
+            /*
+            Collider[] botsHit = Physics.OverlapSphere(hit.point, range, groundMask);
 
             foreach (Collider bots in botsHit)
             {
                 Debug.Log("Bots have been hit" + bots.name.ToString());
             }
+            */
         }
     }
 
     private void OnDrawGizmos()
     {
+        
         if(hit.point != null)
         {
             Gizmos.DrawWireSphere(hit.point, range);
         }
+        
     }
 }

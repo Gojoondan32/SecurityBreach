@@ -7,7 +7,8 @@ public class PlayerMove : MonoBehaviour
     private CharacterController controller;
     [SerializeField] private float speed = 5f;
 
-    
+    Vector3 velocity;
+    [SerializeField] private float gravity = 2f;
 
     private float smoothTime = 0.1f;
     private float turnSmoothVelocity;
@@ -36,14 +37,15 @@ public class PlayerMove : MonoBehaviour
         move = transform.TransformDirection(move);
 
         //RotatePlayer(move);
-        
 
+        AddGravity();
         controller.Move(move * Time.deltaTime);
 
-
-
-        
-
+    }
+    private void AddGravity()
+    {
+        velocity.y -= gravity * Time.deltaTime;
+        controller.Move(velocity * Time.deltaTime);
     }
 
     private Vector3 RotatePlayer(Vector3 move)
