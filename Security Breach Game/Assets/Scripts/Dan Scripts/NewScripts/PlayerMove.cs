@@ -48,6 +48,9 @@ public class PlayerMove : MonoBehaviour
         Vector3 move = direction * speed;
 
         move = transform.TransformDirection(move);
+
+        
+
         controller.Move(move * Time.deltaTime);
 
         if (transform.position != lastPos)
@@ -60,7 +63,7 @@ public class PlayerMove : MonoBehaviour
         }
         lastPos = transform.position;
 
-        //RotatePlayer(move);
+        RotatePlayer(move);
 
         AddGravity();
         
@@ -72,19 +75,16 @@ public class PlayerMove : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-    private Vector3 RotatePlayer(Vector3 move)
+    private void RotatePlayer(Vector3 move)
     {
+        if(move.magnitude > 0)
+        {
+            //If the player is moving turn the player to face that new direction
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(move.x, 0, move.z).normalized);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2 * Time.deltaTime);
+        }
+        
 
-        float targetAngle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
-
-        float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTime);
-
-        transform.rotation = Quaternion.Euler(0, angle, 0);
-
-        moveDir = Quaternion.Euler(0f, targetAngle, 0f) * Vector3.forward;
-
-        Debug.Log("Rotating the player");
-
-        return moveDir;
+        
     }
 }
