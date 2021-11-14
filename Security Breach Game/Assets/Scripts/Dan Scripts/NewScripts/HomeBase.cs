@@ -26,12 +26,16 @@ public class HomeBase : MonoBehaviour
             
             WorkerScript workerScript = otherBots.gameObject.GetComponent<WorkerScript>();
 
-            totalOre += workerScript.currentOre;
-            workerScript.currentOre = 0;
-            workerScript.fullOnOre = false;
+            if(workerScript != null)
+            {
+                totalOre += workerScript.currentOre;
+                workerScript.currentOre = 0;
+                workerScript.fullOnOre = false;
 
-            workerScript.movingToOre = true;
-            workerScript.StartCoroutine(workerScript.MovingToOre());
+                workerScript.movingToOre = true;
+                workerScript.StartCoroutine(workerScript.MovingToOre());
+            }
+            
         }
     }
 
