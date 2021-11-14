@@ -28,7 +28,7 @@ public class BulletScript : MonoBehaviour
             Vector3 direction = target.position - transform.position;
 
             rb.velocity = direction * force;
-            Debug.Log("Enemy located");
+            
         }
     }
 

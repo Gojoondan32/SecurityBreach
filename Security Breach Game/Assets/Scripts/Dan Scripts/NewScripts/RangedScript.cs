@@ -44,7 +44,7 @@ public class RangedScript : MonoBehaviour
                 Instantiate(bulletPrefab, bulletSpawn);
 
                 nextAttackAllowed = Time.time + attackDelay;
-                Debug.Log("Attacking enemy");
+                
             }
             
         }
