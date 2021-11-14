@@ -11,9 +11,14 @@ public class WorkerScript : MonoBehaviour
 
     public bool movingToOre = false;
 
+    public bool fullOnOre = false;
+
     private NavMeshAgent agent;
 
     Vector3 localOre;
+
+    public int currentOre = 0;
+    public int maxOreAllowed = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,6 +26,7 @@ public class WorkerScript : MonoBehaviour
         homeBase = GameObject.FindGameObjectWithTag("HomeBase").transform;
         collectingOre = false;
         movingToOre = false;
+        fullOnOre = false;
     }
 
     // Update is called once per frame
@@ -44,7 +50,7 @@ public class WorkerScript : MonoBehaviour
             collectingOre = false;
         }
         
-
+        
         
     }
 
@@ -56,6 +62,7 @@ public class WorkerScript : MonoBehaviour
             agent.SetDestination(localOre);
             movingToOre = false;
         }
+
     }
     
 }

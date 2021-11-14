@@ -21,6 +21,7 @@ public class PlayerCursor : MonoBehaviour
         
         if(Physics.Raycast(ray, out hit, float.MaxValue, layerMask))
         {
+            
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 botMovement1.PlayerMovePoint(hit.point);
@@ -41,6 +42,8 @@ public class PlayerCursor : MonoBehaviour
         {
             //Debug.Log("Bots are in range");
             BotMovement botMovement = bots.gameObject.GetComponent<BotMovement>();
+
+            
 
             botMovement.CheckRadius();
         }

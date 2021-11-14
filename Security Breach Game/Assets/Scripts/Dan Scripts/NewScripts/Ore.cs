@@ -4,8 +4,19 @@ using UnityEngine;
 
 public class Ore : MonoBehaviour
 {
+    [System.Serializable]
+    public class OreStats
+    {
+        public string name;
+        public int totalOre;
+        
+    }
+
     [SerializeField] private float radius = 3f;
     private LayerMask botMask;
+
+    public OreStats oreStats;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -22,10 +33,23 @@ public class Ore : MonoBehaviour
             //Debug.Log("Bots in ore radius");
             WorkerScript workerScript = bots.gameObject.GetComponent<WorkerScript>();
 
-
             workerScript.collectingOre = true;
-            //workerScript.MiningOre(transform.position);
+
+            if (!workerScript.fullOnOre)
+            {
+                oreStats.totalOre -= workerScript.maxOreAllowed;
+                workerScript.currentOre = workerScript.maxOreAllowed;
+                workerScript.fullOnOre = true;
+            }
+
             workerScript.StartCoroutine(workerScript.MiningOre(transform.position));
+
+            if(oreStats.totalOre <= 0)
+            {
+                oreStats.totalOre = 0;
+                Destroy(gameObject, 2f);
+            }
+
             
         }
     }

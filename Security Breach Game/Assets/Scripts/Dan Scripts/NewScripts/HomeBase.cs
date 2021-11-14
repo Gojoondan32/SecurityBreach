@@ -6,10 +6,13 @@ public class HomeBase : MonoBehaviour
 {
     [SerializeField] private float radius = 5f;
     private LayerMask botMask;
+
+    [SerializeField] private int totalOre = 0;
     // Start is called before the first frame update
     void Start()
     {
         botMask = LayerMask.GetMask("Bots");
+        totalOre = 0;
     }
 
     // Update is called once per frame
@@ -22,6 +25,10 @@ public class HomeBase : MonoBehaviour
         {
             
             WorkerScript workerScript = otherBots.gameObject.GetComponent<WorkerScript>();
+
+            totalOre += workerScript.currentOre;
+            workerScript.currentOre = 0;
+            workerScript.fullOnOre = false;
 
             workerScript.movingToOre = true;
             workerScript.StartCoroutine(workerScript.MovingToOre());
