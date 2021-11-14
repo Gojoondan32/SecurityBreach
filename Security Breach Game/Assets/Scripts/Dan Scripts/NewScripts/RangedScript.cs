@@ -16,25 +16,56 @@ public class RangedScript : MonoBehaviour
     private float nextAttackAllowed = -1f;
     [SerializeField] private float attackDelay = 1f;
 
+    [SerializeField] private bool isMoving;
+    Vector3 lastPos;
 
+    [SerializeField] private bool enemiesInSight;
     // Start is called before the first frame update
     void Start()
     {
         enemyMask = LayerMask.GetMask("Enemies");
+        isMoving = false;
+        enemiesInSight = false;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if(lastPos != transform.position)
+        {
+            isMoving = true;
+        }
+        else
+        {
+            isMoving = false;
+        }
+        lastPos = transform.position;
+
         AttackEnemies();
+
+        if (!isMoving && !enemiesInSight)
+        {
+            Rotate();
+        }
+        
     }
 
     private void AttackEnemies()
     {
         Collider[] enemiesHit = Physics.OverlapSphere(attackPoint.position, range, enemyMask);
 
+        //Check if there are enemies in the field of view
+        if (enemiesHit.Length == 0)
+        {
+            
+            enemiesInSight = false;
+            
+        }
+
         foreach (Collider enemies in enemiesHit)
         {
+            
+            enemiesInSight = true;
             Transform currentEnemy = enemies.gameObject.GetComponent<Transform>();
             
             if(Time.time >= nextAttackAllowed)
@@ -48,6 +79,11 @@ public class RangedScript : MonoBehaviour
             }
             
         }
+    }
+
+    private void Rotate()
+    {
+        transform.RotateAround(transform.position, transform.up, 45 * Time.deltaTime);
     }
 
     private void OnDrawGizmos()
