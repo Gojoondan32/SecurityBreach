@@ -12,6 +12,8 @@ TagManager:
   - HomeBase
   - Ore
   - Worker
+  - Warrior
+  - Drone
   layers:
   - Default
   - TransparentFX
