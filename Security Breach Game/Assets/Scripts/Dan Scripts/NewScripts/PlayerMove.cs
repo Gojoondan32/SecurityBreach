@@ -14,6 +14,17 @@ public class PlayerMove : MonoBehaviour
     private float turnSmoothVelocity;
 
     Vector3 moveDir;
+
+    Vector3 lastPos;
+    
+    private Animator anim;
+
+    private void Awake()
+    {
+        //Get animator component
+        anim = GetComponent<Animator>();
+    }
+
     // Start is called before the first frame update
     void Start()
     {
@@ -31,15 +42,28 @@ public class PlayerMove : MonoBehaviour
 
     private void MovePlayer(float x, float z)
     {
+        
+        
         Vector3 direction = new Vector3(x, 0, z);
         Vector3 move = direction * speed;
 
         move = transform.TransformDirection(move);
+        controller.Move(move * Time.deltaTime);
+
+        if (transform.position != lastPos)
+        {
+            anim.SetBool("Walk_Anim", true);
+        }
+        else
+        {
+            anim.SetBool("Walk_Anim", false);
+        }
+        lastPos = transform.position;
 
         //RotatePlayer(move);
 
         AddGravity();
-        controller.Move(move * Time.deltaTime);
+        
 
     }
     private void AddGravity()
