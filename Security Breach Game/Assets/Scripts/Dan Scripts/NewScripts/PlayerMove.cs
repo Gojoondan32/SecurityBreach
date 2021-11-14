@@ -81,7 +81,7 @@ public class PlayerMove : MonoBehaviour
         {
             //If the player is moving turn the player to face that new direction
             Quaternion lookRotation = Quaternion.LookRotation(new Vector3(move.x, 0, move.z).normalized);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 2 * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, 1.3f * Time.deltaTime);
         }
         
 
