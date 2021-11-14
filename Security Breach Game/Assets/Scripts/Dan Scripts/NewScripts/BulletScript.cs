@@ -25,7 +25,7 @@ public class BulletScript : MonoBehaviour
     {
         if(target != null)
         {
-            Vector3 direction = target.position - transform.position;
+            Vector3 direction = (target.position - transform.position).normalized;
 
             rb.velocity = direction * force;
             

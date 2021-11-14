@@ -67,6 +67,9 @@ public class RangedScript : MonoBehaviour
             //Check if enemies exist in the collider
             enemiesInSight = true;
             Transform currentEnemy = enemies.gameObject.GetComponent<Transform>();
+
+            //Turn to face the enemy
+            transform.LookAt(currentEnemy);
             
             if(Time.time >= nextAttackAllowed)
             {
