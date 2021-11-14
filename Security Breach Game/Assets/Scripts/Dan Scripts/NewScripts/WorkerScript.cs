@@ -29,15 +29,7 @@ public class WorkerScript : MonoBehaviour
         fullOnOre = false;
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     
-    
-
     public IEnumerator MiningOre(Vector3 ore)
     {
         localOre = ore;
@@ -46,12 +38,11 @@ public class WorkerScript : MonoBehaviour
 
         if (collectingOre)
         {
+            //Move to the home base
             agent.SetDestination(homeBase.position);
             collectingOre = false;
         }
-        
-        
-        
+
     }
 
     public IEnumerator MovingToOre()
@@ -59,6 +50,7 @@ public class WorkerScript : MonoBehaviour
         yield return new WaitForSeconds(2f);
         if (movingToOre)
         {
+            //Move to the previous ore location
             agent.SetDestination(localOre);
             movingToOre = false;
         }
