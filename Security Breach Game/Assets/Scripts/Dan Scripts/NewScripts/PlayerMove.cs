@@ -74,6 +74,7 @@ public class PlayerMove : MonoBehaviour
 
     private Vector3 RotatePlayer(Vector3 move)
     {
+
         float targetAngle = Mathf.Atan2(move.x, move.y) * Mathf.Rad2Deg;
 
         float angle = Mathf.SmoothDampAngle(transform.eulerAngles.y, targetAngle, ref turnSmoothVelocity, smoothTime);

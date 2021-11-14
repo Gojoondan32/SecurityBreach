@@ -64,14 +64,16 @@ public class RangedScript : MonoBehaviour
 
         foreach (Collider enemies in enemiesHit)
         {
-            
+            //Check if enemies exist in the collider
             enemiesInSight = true;
             Transform currentEnemy = enemies.gameObject.GetComponent<Transform>();
             
             if(Time.time >= nextAttackAllowed)
             {
+                //Set the bullets position to the current enemy
                 BulletScript.target = currentEnemy;
 
+                //Spawn the bullet
                 Instantiate(bulletPrefab, bulletSpawn);
 
                 nextAttackAllowed = Time.time + attackDelay;
@@ -83,6 +85,7 @@ public class RangedScript : MonoBehaviour
 
     private void Rotate()
     {
+        //Rotate in a circle
         transform.RotateAround(transform.position, transform.up, 45 * Time.deltaTime);
     }
 
