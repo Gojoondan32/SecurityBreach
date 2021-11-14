@@ -33,6 +33,9 @@ public class Ore : MonoBehaviour
             //Debug.Log("Bots in ore radius");
             WorkerScript workerScript = bots.gameObject.GetComponent<WorkerScript>();
 
+            if (workerScript == null)
+                continue;
+
             workerScript.collectingOre = true;
 
             if (!workerScript.fullOnOre)
