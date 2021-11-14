@@ -9,9 +9,9 @@ public class PlayerCursor : MonoBehaviour
 
     [SerializeField] private float radius = 3f;
 
-    public BotMovement botMovement1;
 
-    [SerializeField] private List<GameObject> bots = new List<GameObject>();
+
+    [SerializeField] private List<GameObject> botList = new List<GameObject>();
 
     RaycastHit hit;
     // Update is called once per frame
@@ -24,7 +24,12 @@ public class PlayerCursor : MonoBehaviour
             
             if (Input.GetKeyDown(KeyCode.Mouse0))
             {
-                botMovement1.PlayerMovePoint(hit.point);
+                foreach (GameObject bots in botList)
+                {
+                    BotMovement newBot = bots.gameObject.GetComponent<BotMovement>();
+                    newBot.PlayerMovePoint(hit.point);
+                }
+                
             }
             
             transform.position = hit.point;
@@ -43,7 +48,7 @@ public class PlayerCursor : MonoBehaviour
             //Debug.Log("Bots are in range");
             BotMovement botMovement = bots.gameObject.GetComponent<BotMovement>();
 
-            
+            botList.Add(bots.gameObject);
 
             botMovement.CheckRadius();
         }
