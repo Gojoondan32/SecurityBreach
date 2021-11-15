@@ -8,6 +8,8 @@ public class WarriorAI : MonoBehaviour
 
     private Transform homeBase;
 
+    private Animator anim;
+
     private NavMeshAgent agent;
 
     public GameObject sword;
@@ -21,6 +23,8 @@ public class WarriorAI : MonoBehaviour
 
     private BotMovement botMove;
 
+    Vector3 previousPos;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,13 +33,25 @@ public class WarriorAI : MonoBehaviour
         homeBase = GameObject.FindGameObjectWithTag("HomeBase").transform;
 
         botMask = LayerMask.GetMask("EnemyBots");
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        
+        if(transform.position == previousPos)
+        {
+            anim.SetBool("isMoving", false);
+        }
+        else
+        {
+            anim.SetBool("isMoving", true);
+        }
 
+        previousPos = transform.position;
+
+        
         if (!botMove.botFollowingPlayer)
         {
             target = getTarget();
@@ -52,10 +68,12 @@ public class WarriorAI : MonoBehaviour
                     if (swingCooldown <= 0.0f)
                     {
                         isAttacking = true;
+                        anim.SetBool("isAttacking", true);
                         swingCooldown = 1.0f;
                         //Begin swing animation.
                         sword.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
-                        Invoke("StopSwing", 0.25f);
+                        Invoke("StopSwing", 0.5f);
+                        
 
                         //Do damage to the target!
                         BotHealth healthScript = target.GetComponent<BotHealth>();
@@ -68,6 +86,7 @@ public class WarriorAI : MonoBehaviour
                     else if (!isAttacking)
                     {
                         swingCooldown -= Time.deltaTime;
+                        
                     }
 
                 }
@@ -82,6 +101,7 @@ public class WarriorAI : MonoBehaviour
     {
         sword.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         isAttacking = false;
+        anim.SetBool("isAttacking", false);
     }
 
     private GameObject getTarget()

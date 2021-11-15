@@ -17,6 +17,8 @@ public class WorkerScript : MonoBehaviour
 
     Vector3 localOre;
 
+    Vector3 previousPos;
+
     public int currentOre = 0;
     public int maxOreAllowed = 5;
     // Start is called before the first frame update
@@ -27,9 +29,12 @@ public class WorkerScript : MonoBehaviour
         collectingOre = false;
         movingToOre = false;
         fullOnOre = false;
+
+        
     }
 
-    
+
+
     public IEnumerator MiningOre(Vector3 ore)
     {
         localOre = ore;
