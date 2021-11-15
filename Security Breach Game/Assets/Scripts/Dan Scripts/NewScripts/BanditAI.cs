@@ -2,9 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
-public class EnemyAI : MonoBehaviour
+
+public class BanditAI : MonoBehaviour
 {
     private GameObject homeBase;
+
+    public GameObject ruins;
 
     private NavMeshAgent agent;
 
@@ -28,13 +31,15 @@ public class EnemyAI : MonoBehaviour
 
         botMask = LayerMask.GetMask("Bots");
 
+        
+
     }
 
     // Update is called once per frame
     void Update()
     {
 
-        Vector3 targetPos = homeBase.transform.position;
+        Vector3 targetPos = ruins.transform.position;
 
         target = getTarget();
         if (target != null)
@@ -45,8 +50,7 @@ public class EnemyAI : MonoBehaviour
         }
         else
         {
-            
-            target = homeBase;
+            target = ruins;
         }
 
         if ((targetPos - gameObject.transform.position).magnitude <= 2.0f)
@@ -98,7 +102,7 @@ public class EnemyAI : MonoBehaviour
             BotHealth healthScript = bots.gameObject.GetComponent<BotHealth>();
             if (healthScript == null)
                 continue;
-            
+
             float distance = (bots.gameObject.transform.position - gameObject.transform.position).magnitude;
             if (distance < closest || healthScript.priorityLevel > priorityLevel)
             {

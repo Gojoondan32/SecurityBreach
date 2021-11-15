@@ -31,6 +31,8 @@ public class WaveManager : MonoBehaviour
     private Wave currentWave;
 
     private Transform previousSpawn;
+
+    private Transform _sp;
     // Start is called before the first frame update
     void Start()
     {
@@ -115,6 +117,9 @@ public class WaveManager : MonoBehaviour
         Debug.Log("Spawning wave" + _wave.name);
         state = SpawnState.spawning;
 
+        //Choose random spawn
+        _sp = spawnpoints[Random.Range(0, spawnpoints.Length)];
+
         //Spawn
         for (int i = 0; i < _wave.count; i++)
         {
@@ -133,13 +138,13 @@ public class WaveManager : MonoBehaviour
         GameObject newEnemy = currentWave.typeOfenemies[Random.Range(0, currentWave.typeOfenemies.Length)];
 
 
-        //Choose random spawn
-        Transform _sp = spawnpoints[Random.Range(0, spawnpoints.Length)];
+        /*
         while (previousSpawn == _sp)
         {
             _sp = spawnpoints[Random.Range(0, spawnpoints.Length)];
 
         }
+        */
 
         previousSpawn = _sp;
         GameObject tempEnemy;
