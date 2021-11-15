@@ -34,6 +34,17 @@ public class BulletScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        //If the bullets hits an object on the enemy layer
+        if(collision.gameObject.layer == 13)
+        {
+            BotHealth enemyHealth = collision.gameObject.GetComponent<BotHealth>();
+            if(enemyHealth != null)
+            {
+                enemyHealth.Health--;
+            }
+        }
+
+
         Debug.Log("Enemy has been hit... self destructing!");
         Destroy(gameObject);
     }

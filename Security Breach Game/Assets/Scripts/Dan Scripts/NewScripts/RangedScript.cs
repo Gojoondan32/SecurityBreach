@@ -23,7 +23,7 @@ public class RangedScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        enemyMask = LayerMask.GetMask("Enemies");
+        enemyMask = LayerMask.GetMask("EnemyBots");
         isMoving = false;
         enemiesInSight = false;
     }
