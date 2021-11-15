@@ -22,7 +22,7 @@ public class UpdateCount : MonoBehaviour
         countWorker = GameObject.FindGameObjectsWithTag("Worker").Length;
         countWarrior = GameObject.FindGameObjectsWithTag("Warrior").Length;
         countDrone = GameObject.FindGameObjectsWithTag("Drone").Length;
-        countPop = (countWorker + countWarrior + countDrone);
+        countPop = (countWorker + countWarrior + countDrone + 1);
     }
 
     // Update is called once per frame
@@ -31,6 +31,7 @@ public class UpdateCount : MonoBehaviour
         workercount.text = ((int)countWorker).ToString();
         warriorcount.text = ((int)countWarrior).ToString();
         dronecount.text = ((int)countDrone).ToString();
-        popcount.text = ((int)countPop + " /200").ToString();
+        popcount.text = ((int)countPop + " /50").ToString();
+        orecount.text = HomeBase.totalOre.ToString();
     }
 }

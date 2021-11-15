@@ -7,7 +7,7 @@ public class HomeBase : MonoBehaviour
     [SerializeField] private float radius = 5f;
     private LayerMask botMask;
 
-    [SerializeField] private int totalOre = 0;
+    public static int totalOre = 0;
     // Start is called before the first frame update
     void Start()
     {
