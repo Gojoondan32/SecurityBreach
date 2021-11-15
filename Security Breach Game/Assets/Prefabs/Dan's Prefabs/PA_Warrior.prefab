@@ -286,7 +286,6 @@ GameObject:
   - component: {fileID: 9039849153339354330}
   - component: {fileID: 6757028675903312721}
   - component: {fileID: 3332224523215062829}
-  - component: {fileID: 8749416938844732158}
   m_Layer: 0
   m_Name: Health Container
   m_TagString: Untagged
@@ -374,19 +373,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &8749416938844732158
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6314739445444746240}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 419125cc680b5a249bb0366463a1ce7d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cam: {fileID: 0}
 --- !u!1 &7855321206070211105
 GameObject:
   m_ObjectHideFlags: 0

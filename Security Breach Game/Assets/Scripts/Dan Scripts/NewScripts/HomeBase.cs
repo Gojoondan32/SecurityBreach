@@ -8,11 +8,14 @@ public class HomeBase : MonoBehaviour
     private LayerMask botMask;
 
     public static int totalOre = 0;
+
     // Start is called before the first frame update
     void Start()
     {
         botMask = LayerMask.GetMask("Bots");
         totalOre = 0;
+
+
     }
 
     // Update is called once per frame

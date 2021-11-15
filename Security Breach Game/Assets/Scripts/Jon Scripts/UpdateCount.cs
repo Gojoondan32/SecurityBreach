@@ -19,15 +19,19 @@ public class UpdateCount : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        countWorker = GameObject.FindGameObjectsWithTag("Worker").Length;
-        countWarrior = GameObject.FindGameObjectsWithTag("Warrior").Length;
-        countDrone = GameObject.FindGameObjectsWithTag("Drone").Length;
-        countPop = (countWorker + countWarrior + countDrone + 1);
+        
     }
 
     // Update is called once per frame
     void Update()
     {
+
+        countWorker = GameObject.FindGameObjectsWithTag("Worker").Length;
+        countWarrior = GameObject.FindGameObjectsWithTag("Warrior").Length;
+        countDrone = GameObject.FindGameObjectsWithTag("Drone").Length;
+        countPop = (countWorker + countWarrior + countDrone + 1);
+
+
         workercount.text = ((int)countWorker).ToString();
         warriorcount.text = ((int)countWarrior).ToString();
         dronecount.text = ((int)countDrone).ToString();

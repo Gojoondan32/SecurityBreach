@@ -2,20 +2,21 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class CreateBot : MonoBehaviour
 {
 
-    public GameObject Worker;
-    public GameObject Warrior;
     public GameObject Drone;
 
     public Transform spawn;
 
+    [SerializeField] private int cost;
+
     // Start is called before the first frame update
     void Start()
     {
-    
+        
     }
 
     // Update is called once per frame
@@ -23,19 +24,23 @@ public class CreateBot : MonoBehaviour
     {
         
     }
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log("Spawning");
+        if(other.gameObject.tag == "Player")
+        {
+            if(HomeBase.totalOre >= cost)
+            {
+                GameObject tempBot;
+                tempBot = (GameObject)Instantiate(Drone, spawn.position, Quaternion.identity);
+                HomeBase.totalOre -= cost;
+            }
+            
+        }
+        
+    }
 
-    public void spawnWorker()
-    {
-        Instantiate(Worker, spawn);
-    }
-    public void spawnWarrior()
-    {
-        Instantiate(Warrior, spawn);
-    }
-    public void spawnDrone()
-    {
-        Instantiate(Drone, spawn);
-        Debug.Log("Drone spawned");
-    }
 
+
+    
 }
