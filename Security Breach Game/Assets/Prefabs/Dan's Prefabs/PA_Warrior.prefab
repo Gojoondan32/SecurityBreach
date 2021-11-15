@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 8822795099846653710}
   - component: {fileID: 6133582260393417872}
   - component: {fileID: 7711395032224200773}
-  - component: {fileID: 8193961755013990903}
   m_Layer: 0
   m_Name: Health Bar
   m_TagString: Untagged
@@ -121,55 +120,12 @@ MonoBehaviour:
   m_HandleRect: {fileID: 0}
   m_Direction: 0
   m_MinValue: 0
-  m_MaxValue: 100
+  m_MaxValue: 3
   m_WholeNumbers: 1
-  m_Value: 100
+  m_Value: 3
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
---- !u!114 &8193961755013990903
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3082606839234464204}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5fe97a6223d00541a23826726ea197d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  slider: {fileID: 7711395032224200773}
-  grad:
-    serializedVersion: 2
-    key0: {r: 0.93725497, g: 0.058823533, b: 0.11764707, a: 1}
-    key1: {r: 1, g: 0.7908525, b: 0.0990566, a: 1}
-    key2: {r: 0.37647063, g: 0.8862746, b: 0.19607845, a: 1}
-    key3: {r: 0, g: 0, b: 0, a: 1}
-    key4: {r: 0, g: 0, b: 0, a: 1}
-    key5: {r: 0, g: 0, b: 0, a: 1}
-    key6: {r: 0, g: 0, b: 0, a: 1}
-    key7: {r: 0, g: 0, b: 0, a: 1}
-    ctime0: 0
-    ctime1: 31611
-    ctime2: 65535
-    ctime3: 0
-    ctime4: 0
-    ctime5: 0
-    ctime6: 0
-    ctime7: 0
-    atime0: 0
-    atime1: 19275
-    atime2: 21588
-    atime3: 28142
-    atime4: 42983
-    atime5: 57825
-    atime6: 65535
-    atime7: 65535
-    m_Mode: 0
-    m_NumColorKeys: 3
-    m_NumAlphaKeys: 7
-  fill: {fileID: 3750303297285315443}
 --- !u!1 &3960288929989606919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1424,11 +1380,11 @@ GameObject:
   - component: {fileID: 7855321206070701695}
   - component: {fileID: 7855321206079685023}
   - component: {fileID: 7855321206070211156}
-  - component: {fileID: 7855321206070211162}
   - component: {fileID: 7855321206070211160}
   - component: {fileID: 7855321206070211166}
   - component: {fileID: 7855321206070211152}
   - component: {fileID: 7855321206070211158}
+  - component: {fileID: 8617605850962088119}
   m_Layer: 10
   m_Name: PA_Warrior
   m_TagString: Warrior
@@ -1486,20 +1442,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   botFollowingPlayer: 0
---- !u!114 &7855321206070211162
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7855321206070211167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f0a982a8abf3ed40a670669402adb57, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Health: 3
-  priorityLevel: 0
 --- !u!114 &7855321206070211160
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1564,3 +1506,47 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.3808442, y: 1, z: 0.4885788}
   m_Center: {x: 0.0053533316, y: 0.62000006, z: -0.09658178}
+--- !u!114 &8617605850962088119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7855321206070211167}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f5fe97a6223d00541a23826726ea197d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  slider: {fileID: 7711395032224200773}
+  grad:
+    serializedVersion: 2
+    key0: {r: 0.93725497, g: 0.058823533, b: 0.11764707, a: 1}
+    key1: {r: 1, g: 0.7908525, b: 0.0990566, a: 1}
+    key2: {r: 0.37647063, g: 0.8862746, b: 0.19607845, a: 1}
+    key3: {r: 0, g: 0, b: 0, a: 1}
+    key4: {r: 0, g: 0, b: 0, a: 1}
+    key5: {r: 0, g: 0, b: 0, a: 1}
+    key6: {r: 0, g: 0, b: 0, a: 1}
+    key7: {r: 0, g: 0, b: 0, a: 0}
+    ctime0: 0
+    ctime1: 31611
+    ctime2: 65535
+    ctime3: 0
+    ctime4: 0
+    ctime5: 0
+    ctime6: 0
+    ctime7: 0
+    atime0: 0
+    atime1: 19275
+    atime2: 21588
+    atime3: 28142
+    atime4: 42983
+    atime5: 57825
+    atime6: 65535
+    atime7: 0
+    m_Mode: 0
+    m_NumColorKeys: 3
+    m_NumAlphaKeys: 7
+  fill: {fileID: 3750303297285315443}
+  priorityLevel: 2

@@ -57,12 +57,12 @@ public class WarriorAI : MonoBehaviour
             target = getTarget();
             if (target != null)
             {
-
+                
                 Vector3 targetPos = target.transform.position;
 
                 agent.SetDestination(targetPos);
 
-                if ((targetPos - gameObject.transform.position).magnitude <= 2.0f)
+                if ((targetPos - gameObject.transform.position).magnitude <= 3.0f)
                 {
                     //Close enough to start attacking!
                     if (swingCooldown <= 0.0f)
@@ -73,13 +73,14 @@ public class WarriorAI : MonoBehaviour
                         //Begin swing animation.
                         sword.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
                         Invoke("StopSwing", 0.5f);
-                        
+
 
                         //Do damage to the target!
-                        BotHealth healthScript = target.GetComponent<BotHealth>();
+                        HealthBar healthScript = target.GetComponent<HealthBar>();
+                        //BotHealth healthScript = target.GetComponent<BotHealth>();
                         if(healthScript != null)
                         {
-                            healthScript.Health--;
+                            healthScript.SetHealth(1);
                         }
 
                     }
@@ -113,7 +114,7 @@ public class WarriorAI : MonoBehaviour
         Collider[] botsInRadius = Physics.OverlapSphere(transform.position, closest, botMask);
         foreach (Collider bots in botsInRadius)
         {
-
+            
             float distance = (bots.gameObject.transform.position - gameObject.transform.position).magnitude;
             if(distance < closest)
             {

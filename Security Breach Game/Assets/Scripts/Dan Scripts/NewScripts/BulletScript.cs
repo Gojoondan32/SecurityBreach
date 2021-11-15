@@ -37,10 +37,10 @@ public class BulletScript : MonoBehaviour
         //If the bullets hits an object on the enemy layer
         if(collision.gameObject.layer == 13)
         {
-            BotHealth enemyHealth = collision.gameObject.GetComponent<BotHealth>();
+            HealthBar enemyHealth = collision.gameObject.GetComponent<HealthBar>();
             if(enemyHealth != null)
             {
-                enemyHealth.Health--;
+                enemyHealth.SetHealth(1);
             }
         }
 

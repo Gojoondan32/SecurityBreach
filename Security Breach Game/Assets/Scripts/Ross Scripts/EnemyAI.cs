@@ -6,6 +6,8 @@ public class EnemyAI : MonoBehaviour
 {
     private GameObject homeBase;
 
+    private Animator anim;
+
     private NavMeshAgent agent;
 
     public GameObject sword;
@@ -27,7 +29,7 @@ public class EnemyAI : MonoBehaviour
         homeBase = GameObject.FindGameObjectWithTag("HomeBase");
 
         botMask = LayerMask.GetMask("Bots");
-
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -49,21 +51,22 @@ public class EnemyAI : MonoBehaviour
             target = homeBase;
         }
 
-        if ((targetPos - gameObject.transform.position).magnitude <= 2.0f)
+        if ((targetPos - gameObject.transform.position).magnitude <= (target.CompareTag("Drone") ? 6.0f : 3.0f))
         {
             //Close enough to start attacking!
             if (swingCooldown <= 0.0f)
             {
                 isAttacking = true;
+                anim.SetBool("isAttacking", true);
                 swingCooldown = 1.0f;
                 //Begin swing animation.
                 sword.transform.localRotation = Quaternion.Euler(90.0f, 0.0f, 0.0f);
                 Invoke("StopSwing", 0.25f);
 
-                BotHealth healthScript = target.GetComponent<BotHealth>();
+                HealthBar healthScript = target.GetComponent<HealthBar>();
                 if (healthScript != null)
                 {
-                    healthScript.Health--;
+                    healthScript.SetHealth(1);
                 }
 
             }
@@ -82,6 +85,7 @@ public class EnemyAI : MonoBehaviour
     {
         sword.transform.localRotation = Quaternion.Euler(0.0f, 0.0f, 0.0f);
         isAttacking = false;
+        anim.SetBool("isAttacking", false);
     }
 
     private GameObject getTarget()
@@ -95,7 +99,7 @@ public class EnemyAI : MonoBehaviour
         foreach (Collider bots in botsInRadius)
         {
 
-            BotHealth healthScript = bots.gameObject.GetComponent<BotHealth>();
+            HealthBar healthScript = bots.gameObject.GetComponent<HealthBar>();
             if (healthScript == null)
                 continue;
             

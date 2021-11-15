@@ -9,6 +9,13 @@ public class HealthBar : UnityEngine.MonoBehaviour
 
     public Image fill;
 
+    public int priorityLevel = 0;
+
+    private void Update()
+    {
+        
+    }
+
     public void SetMaxHealth(int health)
     {
         slider.maxValue = health;
@@ -19,8 +26,13 @@ public class HealthBar : UnityEngine.MonoBehaviour
 
     public void SetHealth(int health)
     {
-        slider.value = health;
+        slider.value -= health;
 
         fill.color = grad.Evaluate(slider.normalizedValue);
+
+        if (slider.value <= 0)
+        {
+            gameObject.SetActive(false); //It is now dead.
+        }
     }
 }
