@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class HomeBase : MonoBehaviour
 {
@@ -9,13 +10,15 @@ public class HomeBase : MonoBehaviour
 
     public static int totalOre = 0;
 
+    public GameObject loose;
+
     // Start is called before the first frame update
     void Start()
     {
         botMask = LayerMask.GetMask("Bots");
         totalOre = 0;
 
-
+        loose.SetActive(false);
     }
 
     // Update is called once per frame
@@ -40,10 +43,23 @@ public class HomeBase : MonoBehaviour
             }
             
         }
+
+        HealthBar health = gameObject.GetComponent<HealthBar>();
+        if(health.slider.value == 0)
+        {
+            loose.SetActive(true);
+            StartCoroutine(Menu());
+        }
     }
 
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(transform.position, radius);
+    }
+
+    private IEnumerator Menu()
+    {
+        yield return new WaitForSeconds(5f);
+        SceneManager.LoadScene("Menu");
     }
 }

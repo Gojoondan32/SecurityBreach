@@ -12,11 +12,14 @@ public class BanditManager : MonoBehaviour
 
     public GameObject waveManager;
 
+    public GameObject win;
     // Start is called before the first frame update
     void Start()
     {
         currentTime = startingTime;
         waveManager.SetActive(false);
+        win.SetActive(false);
+        
     }
 
     // Update is called once per frame
@@ -43,6 +46,7 @@ public class BanditManager : MonoBehaviour
         if (!BanditIsAlive())
         {
             Debug.Log("You Win");
+            win.SetActive(true);
         }
 
         BanditCount();
@@ -60,6 +64,6 @@ public class BanditManager : MonoBehaviour
     public void BanditCount()
     {
         int BanditNumbers = GameObject.FindGameObjectsWithTag("Bandit").Length;
-        ObjectiveText.text = ("Current Objective: " + (8 - BanditNumbers) + "/" + 8).ToString();
+        ObjectiveText.text = ("Current Objective: Kill Bandits (North East) " + (8 - BanditNumbers) + "/" + 8).ToString();
     }
 }
